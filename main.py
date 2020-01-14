@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 import requests
 
 TOKEN=sys.argv[1]
-
+deger = BeautifulSoup(requests.get('http://bigpara.hurriyet.com.tr/altin/').content, 'html.parser').find_all('span',{'class':'value'})
 bot=telepot.Bot(TOKEN)
 logging.basicConfig(filename='konksoft.log',level=logging.DEBUG)
 def handle(msg):
@@ -20,15 +20,16 @@ def handle(msg):
 	date = msg['date']
 	print (chat_id,whois,whoissurname,time.ctime()+'\nGirilen Komut: %s' % command)
 	if command == '/start':
-            bot.sendMessage(chat_id,'Hoşgeldiniz '+ whois + '\n Robotu kullanmak için aşağıdaki komutları kullanabilirsiniz \n/senkimsin\n/dogancanozcankim\n/otopark\n/ring\n/altingram\n/salla\n/selam\n/?')
+            bot.sendMessage(chat_id,'Hoşgeldiniz '+ whois + '\n Robotu kullanmak için aşağıdaki komutları kullanabilirsiniz \n/senkimsin\n/dogancanozcankim\n/otopark\n/ring\n/altingram\n/altinceyrek\n/salla\n/selam\n/?')
 	if command == '/otopark':
                 otopark=urllib.request.urlopen("http://91.92.136.227/counter/get")
                 bot.sendMessage(chat_id, 'Merkez otopark boş yer sayısı: ' + (otopark.read().decode("UTF-8")))
 	if command == '/senkimsin':
             bot.sendMessage(chat_id,'Benim adım konksoft_bot ben belirli komutlara programlanmış çıktılar veren bir robotum')
 	if command == '/altingram':
-		deger = BeautifulSoup(requests.get('http://bigpara.hurriyet.com.tr/altin/gram-altin-fiyati/').content, 'html.parser').find_all('span',{'class':'value up'})
-		bot.sendMessage(chat_id,'Gram Altının Anlık Alış Değeri '+str(deger)[24:30]+ ' Satış Değeri ' + str(deger)[62:68]+' dir')
+		bot.sendMessage(chat_id,'Gram Altının Anlık Alış Değeri '+str(deger)[57:63]+ ' Satış Değeri ' + str(deger)[92:98]+' dir')
+	if command == '/altinceyrek':
+		bot.sendMessage(chat_id, ' Çeyrek Altının Anlık Alış Değeri '+str(deger)[163:169]+ ' Satış Değeri '+ str(deger)[198:204])
 	if command == '/dogancanozcankim':
             bot.sendMessage(chat_id,'Doğancan Özcan Benim Yaratıcımdır,Beni o programladı ve ben ona hizmet etmek için varım')
 	if command == '/salla':
@@ -36,7 +37,7 @@ def handle(msg):
 	if command == '/selam':
                 bot.sendMessage(chat_id,'Selam '+whois+' '+whoissurname)
 	if command == '/?':
-                bot.sendMessage(chat_id, '\n Robotu kullanmak için aşağıdaki komutları kullanabilirsiniz \n/senkimsin\n/dogancanozcankim\n/otopark\n/ring\n/altingram\n/salla\n/selam\n/?\n')
+                bot.sendMessage(chat_id, '\n Robotu kullanmak için aşağıdaki komutları kullanabilirsiniz \n/senkimsin\n/dogancanozcankim\n/otopark\n/ring\n/altingram\n/altinceyrek\n/salla\n/selam\n/?\n')
 	if command == '/ring':
 		iss= 0
 		zss = 1
