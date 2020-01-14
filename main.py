@@ -5,6 +5,8 @@ import random
 import logging
 import sys
 import urllib.request
+from bs4 import BeautifulSoup
+import requests
 
 TOKEN=sys.argv[1]
 
@@ -18,12 +20,15 @@ def handle(msg):
 	date = msg['date']
 	print (chat_id,whois,whoissurname,time.ctime()+'\nGirilen Komut: %s' % command)
 	if command == '/start':
-            bot.sendMessage(chat_id,'Hoşgeldiniz '+ whois + '\n Robotu kullanmak için aşağıdaki komutları kullanabilirsiniz \n/senkimsin\n/dogancanozcankim\n/salla\n/selam\n/?')
-	if command == 'otopark':
+            bot.sendMessage(chat_id,'Hoşgeldiniz '+ whois + '\n Robotu kullanmak için aşağıdaki komutları kullanabilirsiniz \n/senkimsin\n/dogancanozcankim\n/otopark\n/ring\n/altingram\n/salla\n/selam\n/?')
+	if command == '/otopark':
                 otopark=urllib.request.urlopen("http://91.92.136.227/counter/get")
                 bot.sendMessage(chat_id, 'Merkez otopark boş yer sayısı: ' + (otopark.read().decode("UTF-8")))
 	if command == '/senkimsin':
             bot.sendMessage(chat_id,'Benim adım konksoft_bot ben belirli komutlara programlanmış çıktılar veren bir robotum')
+	if command == '/altingram':
+		deger = BeautifulSoup(requests.get('http://bigpara.hurriyet.com.tr/altin/gram-altin-fiyati/').content, 'html.parser').find_all('span',{'class':'value up'})
+		bot.sendMessage(chat_id,'Gram Altının Anlık Alış Değeri '+str(deger)[24:30]+ ' Satış Değeri ' + str(deger)[62:68]+' dir')
 	if command == '/dogancanozcankim':
             bot.sendMessage(chat_id,'Doğancan Özcan Benim Yaratıcımdır,Beni o programladı ve ben ona hizmet etmek için varım')
 	if command == '/salla':
@@ -31,16 +36,15 @@ def handle(msg):
 	if command == '/selam':
                 bot.sendMessage(chat_id,'Selam '+whois+' '+whoissurname)
 	if command == '/?':
-                bot.sendMessage(chat_id, '\n Robotu kullanmak için aşağıdaki komutları kullanabilirsiniz \n/senkimsin\notopark\n/dogancanozcankim\n/salla\n/selam\n/?\n')
+                bot.sendMessage(chat_id, '\n Robotu kullanmak için aşağıdaki komutları kullanabilirsiniz \n/senkimsin\n/dogancanozcankim\n/otopark\n/ring\n/altingram\n/salla\n/selam\n/?\n')
 	if command == '/ring':
-		iss = 0
+		iss= 0
 		zss = 1
 		kalanlar=[]
 		kalanim=0
 		kalansaat=0
 		kalandakika=0
 		kalan=0
-		#bot.sendMessage(chat_id,'denememe'+str(iss))
 		while iss < zss:#Döngümüz
                         dakikalar=(425,445,455,465,475,500,510,515,525,530,550,570,600,660,720,780,840,900,960,1020,1065,1080,1095,1110,1125,1155,1170)#Servis Saatlerinin dakika olarak tutan liste.
                         zss=len(dakikalar)#while döngüsü için z değişkenini while döngüsü içerisindeki dakikalar listesinin sayısına eşitleyen değişken
