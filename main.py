@@ -9,7 +9,6 @@ from bs4 import BeautifulSoup
 import requests
 
 TOKEN=sys.argv[1]
-deger = BeautifulSoup(requests.get('http://bigpara.hurriyet.com.tr/altin/').content, 'html.parser').find_all('span',{'class':'value'})
 bot=telepot.Bot(TOKEN)
 logging.basicConfig(filename='konksoft.log',level=logging.DEBUG)
 def handle(msg):
@@ -27,9 +26,11 @@ def handle(msg):
 	if command == '/senkimsin':
             bot.sendMessage(chat_id,'Benim adım konksoft_bot ben belirli komutlara programlanmış çıktılar veren bir robotum')
 	if command == '/altingram':
-		bot.sendMessage(chat_id,'Gram Altının Anlık Alış Değeri '+str(deger)[57:63]+ ' Satış Değeri ' + str(deger)[92:98]+' dir')
+		deger = BeautifulSoup(requests.get('http://bigpara.hurriyet.com.tr/altin/').content, 'html.parser').find_all('span',{'class':'value'})
+		bot.sendMessage(chat_id,'Gram Altının Anlık Alış Değeri '+str(deger)[56:62]+ ' Satış Değeri ' + str(deger)[91:97]+' dir')
 	if command == '/altinceyrek':
-		bot.sendMessage(chat_id, ' Çeyrek Altının Anlık Alış Değeri '+str(deger)[163:169]+ ' Satış Değeri '+ str(deger)[198:204])
+		deger = BeautifulSoup(requests.get('http://bigpara.hurriyet.com.tr/altin/').content, 'html.parser').find_all('span',{'class':'value'})
+		bot.sendMessage(chat_id, ' Çeyrek Altının Anlık Alış Değeri '+str(deger)[162:168]+ ' Satış Değeri '+ str(deger)[197:203])
 	if command == '/dogancanozcankim':
             bot.sendMessage(chat_id,'Doğancan Özcan Benim Yaratıcımdır,Beni o programladı ve ben ona hizmet etmek için varım')
 	if command == '/salla':
