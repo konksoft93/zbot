@@ -17,29 +17,32 @@ def handle(msg):
 	whois = msg['from']['first_name']
 	whoissurname = msg['from']['last_name']
 	date = msg['date']
-	print (chat_id,whois,whoissurname,time.ctime()+'\nGirilen Komut: %s' % command)
-	if command == '/start':
-            bot.sendMessage(chat_id,'Hoşgeldiniz '+ whois + '\n Robotu kullanmak için aşağıdaki komutları kullanabilirsiniz \n/senkimsin\n/dogancanozcankim\n/otopark\n/ring\n/altingram\n/altinceyrek\n/salla\n/selam\n/?')
-	if command == '/otopark':
+	print (chat_id,whois,whoissurname,time.ctime()+'.nGirilen Komut: %s' % command)
+	if command == '.start':
+            bot.sendMessage(chat_id,'Hoşgeldiniz '+ whois + '\n Robotu kullanmak için aşağıdaki komutları kullanabilirsiniz \n .senkimsin\n .dogancanozcankim\n .otopark\n .ring\n .altingram\n .altinceyrek\n .salla\n .selam\n .?')
+	if command == '.otopark':
                 otopark=urllib.request.urlopen("http://91.92.136.227/counter/get")
                 bot.sendMessage(chat_id, 'Merkez otopark boş yer sayısı: ' + (otopark.read().decode("UTF-8")))
-	if command == '/senkimsin':
+	if command == '.anlıkhava':
+		deger = BeautifulSoup(requests.get('https://www.accuweather.com/tr/tr/ankara/316938/current-weather/316938').content,'html.parser')
+		bot.sendMessage(chat_id,deger.find_all('p',class_='value'))  
+	if command == '.senkimsin':
             bot.sendMessage(chat_id,'Benim adım konksoft_bot ben belirli komutlara programlanmış çıktılar veren bir robotum')
-	if command == '/altingram':
+	if command == '.altingram':
 		deger = BeautifulSoup(requests.get('http://bigpara.hurriyet.com.tr/altin/').content, 'html.parser').find_all('span',{'class':'value'})
 		bot.sendMessage(chat_id,'Gram Altının Anlık Alış Değeri '+str(deger)[56:62]+ ' Satış Değeri ' + str(deger)[91:97]+' dir')
-	if command == '/altinceyrek':
+	if command == '.altinceyrek':
 		deger = BeautifulSoup(requests.get('http://bigpara.hurriyet.com.tr/altin/').content, 'html.parser').find_all('span',{'class':'value'})
 		bot.sendMessage(chat_id, ' Çeyrek Altının Anlık Alış Değeri '+str(deger)[162:168]+ ' Satış Değeri '+ str(deger)[197:203])
-	if command == '/dogancanozcankim':
+	if command == '.dogancanozcankim':
             bot.sendMessage(chat_id,'Doğancan Özcan Benim Yaratıcımdır,Beni o programladı ve ben ona hizmet etmek için varım')
-	if command == '/salla':
+	if command == '.salla':
             bot.sendMessage(chat_id,random.randint(1,100))
-	if command == '/selam':
+	if command == '.selam':
                 bot.sendMessage(chat_id,'Selam '+whois+' '+whoissurname)
-	if command == '/?':
-                bot.sendMessage(chat_id, '\n Robotu kullanmak için aşağıdaki komutları kullanabilirsiniz \n/senkimsin\n/dogancanozcankim\n/otopark\n/ring\n/altingram\n/altinceyrek\n/salla\n/selam\n/?\n')
-	if command == '/ring':
+	if command == '.?':
+                bot.sendMessage(chat_id, '\n Robotu kullanmak için aşağıdaki komutları kullanabilirsiniz \n .senkimsin\n .dogancanozcankim\n .otopark\n .ring\n .altingram\n .altinceyrek\n .salla\n .selam\n .?\n')
+	if command == '.ring':
 		iss= 0
 		zss = 1
 		kalanlar=[]
